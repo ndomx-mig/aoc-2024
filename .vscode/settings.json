@@ -1,7 +1,8 @@
 {
     "cSpell.words": [
         "dont",
-        "rustc"
+        "rustc",
+        "serde"
     ],
     "cSpell.ignorePaths": [
         "package-lock.json",

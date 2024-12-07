@@ -71,3 +71,27 @@ pub fn is_update_valid(update: &Vec<usize>, rules: &Rules) -> bool {
 
     return true;
 }
+
+pub fn find_error(line: &Vec<usize>, rules: &Rules) -> Option<(usize, usize)> {
+    let size = line.len() - 1;
+    for (idx, &entry) in line.iter().rev().enumerate() {
+        let comp_idx = size - idx;
+        let filtered = &line[0..comp_idx];
+        if filtered.len() == 0 {
+            break;
+        }
+
+        let invalid_values = match rules.get(&entry) {
+            Some(val) => val,
+            None => continue,
+        };
+
+        for (jdx, val) in filtered.iter().enumerate() {
+            if invalid_values.contains(val) {
+                return Some((comp_idx, jdx));
+            }
+        }
+    }
+
+    return None;
+}
