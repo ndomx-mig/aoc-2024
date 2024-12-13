@@ -14,6 +14,10 @@ pub trait Matrix {
     fn abs_idx(&self, point: &Point) -> usize {
         return point.y * self.rows() + point.x;
     }
+
+    fn size(&self) -> usize {
+        return self.rows() * self.cols();
+    }
 }
 
 impl Matrix for Vec<String> {
