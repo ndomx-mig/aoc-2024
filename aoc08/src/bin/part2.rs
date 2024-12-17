@@ -1,8 +1,6 @@
 use std::collections::HashSet;
 
-use aoc08::{
-    break_list, calculate_antinode, make_hashmap, matrix::Matrix, read_input,
-};
+use aoc08::{break_list, calculate_antinodes, make_hashmap, matrix::Matrix, read_input};
 
 const SOURCE: &str = "input";
 
@@ -18,9 +16,10 @@ fn main() {
         for idx in 0..val.len() {
             let (curr, others) = break_list(&val, idx);
             for point in others {
-                if let Some(loc) = calculate_antinode(curr, point, &bounds) {
-                    unique_locs.insert(matrix_map.abs_idx(&loc));
-                }
+                let locs = calculate_antinodes(curr, point, &bounds);
+                locs.iter().for_each(|loc| {
+                    unique_locs.insert(matrix_map.abs_idx(loc));
+                });
             }
         }
     });

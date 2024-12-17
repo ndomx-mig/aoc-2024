@@ -19,9 +19,9 @@ impl Vector {
             col: self.x as usize,
         };
 
-        return match &point > bounds {
-            true => None,
-            false => Some(point),
+        return match point.is_bounded(bounds) {
+            true => Some(point),
+            false => None,
         };
     }
 

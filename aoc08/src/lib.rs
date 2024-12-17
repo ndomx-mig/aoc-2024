@@ -40,6 +40,22 @@ pub fn calculate_antinode(p1: &Point, p2: &Point, bounds: &Point) -> Option<Poin
     return antinode_loc.to_point(bounds);
 }
 
+pub fn calculate_antinodes(p1: &Point, p2: &Point, bounds: &Point) -> Vec<Point> {
+    let mut points = vec![Point::from_ref(p1)];
+
+    let mut q1 = Point::from_ref(p1);
+    let mut q2 = Point::from_ref(p2);
+
+    while let Some(p) = calculate_antinode(&q1, &q2, bounds) {
+        q2 = Point::from_ref(&q1);
+        q1 = Point::from_ref(&p);
+
+        points.push(p);
+    }
+
+    return points;
+}
+
 pub fn break_list(list: &[Point], idx: usize) -> (&Point, Vec<&Point>) {
     let filtered = list
         .iter()
@@ -49,6 +65,6 @@ pub fn break_list(list: &[Point], idx: usize) -> (&Point, Vec<&Point>) {
             true => None,
         })
         .collect();
-    
+
     return (&list[idx], filtered);
 }
