@@ -17,3 +17,12 @@ impl Display for MemoryBlock {
         };
     }
 }
+
+impl Default for MemoryBlock {
+    fn default() -> Self {
+        Self {
+            memory_type: MemoryType::FREE,
+            id: Default::default(),
+        }
+    }
+}
