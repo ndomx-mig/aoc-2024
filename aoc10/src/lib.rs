@@ -91,11 +91,29 @@ pub fn find_trails(
         success_map,
     );
 
-    find_trails(
-        map,
-        start,
-        curr.move_to(Dir::UP),
-        next_target,
-        success_map,
-    );
+    find_trails(map, start, curr.move_to(Dir::UP), next_target, success_map);
+}
+
+pub fn find_trails2(map: &[Vec<u8>], curr: Point, target: u8) -> usize {
+    let curr_value = match map.read_at(&curr) {
+        Some(val) => *val,
+        None => return 0,
+    };
+
+    if target != curr_value {
+        return 0;
+    }
+
+    if target == 9 {
+        return 1;
+    }
+
+    let mut rating: usize = 0;
+
+    rating += find_trails2(map, curr.move_to(Dir::RIGHT), target + 1);
+    rating += find_trails2(map, curr.move_to(Dir::DOWN), target + 1);
+    rating += find_trails2(map, curr.move_to(Dir::LEFT), target + 1);
+    rating += find_trails2(map, curr.move_to(Dir::UP), target + 1);
+
+    return rating;
 }
