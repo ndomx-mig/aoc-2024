@@ -1,6 +1,6 @@
 use std::env;
 
-use aoc11::apply_rules_once;
+use aoc11::iterator::apply_rules_once;
 
 fn main() {
     let n: u64 = env::args()
